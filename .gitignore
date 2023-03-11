@@ -1,0 +1,4 @@
+cache/*
+test/css/*
+example.png
+node_modules
