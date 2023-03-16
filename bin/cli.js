@@ -1,16 +1,15 @@
 #!/usr/bin/env node
-const {program} = require('commander')
+const { program } = require('commander')
 const inquirer = require('inquirer')
-const fs = require('fs')
-const {getAccountCache, setCache} = require('../src/utils/cache.js')
-const {loginIconfont} = require('../src/utils/login.js')
-const {downloadIconZip} = require('../src/utils/download.js')
+const { getAccountCache, setCache } = require('../src/utils/cache.js')
+const { loginIconfont } = require('../src/utils/login.js')
+const { downloadIconZip } = require('../src/utils/download.js')
 const { moveFile, unzipFile, cleanUp } = require('../src/utils/fileHandler')
-const {DOWNLOAD_TEMP_FILE_PATH, DOWNLOAD_TEMP_PATH} = require('../src/conf/iconfont.conf.js')
+const { DOWNLOAD_TEMP_FILE_PATH, DOWNLOAD_TEMP_PATH } = require('../src/conf/iconfont.conf.js')
 const { resolve } = require('path')
 const path = require('path')
 
-function queryAccount() {
+function queryAccount () {
   return inquirer.prompt([
     {
       type: 'input',
@@ -21,31 +20,31 @@ function queryAccount() {
       type: 'input',
       name: 'password',
       message: 'input password'
-    },
+    }
   ])
 }
 
-async function updateIconFile(account, iconfontPath, projectID) {
-  const {page, browser} = await loginIconfont(account)
+async function updateIconFile (account, iconfontPath, projectID) {
+  const { page, browser } = await loginIconfont(account)
   await downloadIconZip(page, projectID)
-  await browser.close();
+  await browser.close()
   unzipFile(DOWNLOAD_TEMP_FILE_PATH, DOWNLOAD_TEMP_PATH)
   moveFile(DOWNLOAD_TEMP_PATH, path.join(resolve('./'), iconfontPath))
-  cleanUp(DOWNLOAD_TEMP_PATH);
+  cleanUp(DOWNLOAD_TEMP_PATH)
 }
 
 // 参数
-console.log('参数：',process.argv)
+console.log('参数：', process.argv)
 
 program
   .argument('<path>', 'iconfont路径')
   .argument('<projectID>', 'iconfont项目ID')
   .action(async (iconfontPath, projectID) => {
-    console.log('iconfontPath: ', iconfontPath);
-    console.log('projectID: ', projectID);
+    console.log('iconfontPath: ', iconfontPath)
+    console.log('projectID: ', projectID)
 
     const accountCache = getAccountCache()
-    if(accountCache) {
+    if (accountCache) {
       updateIconFile(accountCache, iconfontPath, projectID)
     } else {
       const account = await queryAccount()
@@ -53,4 +52,4 @@ program
       updateIconFile(account, iconfontPath, projectID)
     }
   })
-program.parse();
+program.parse()

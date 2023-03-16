@@ -1,4 +1,4 @@
-const { CACHE_FILE_NAME_PATH } = require('../conf/iconfont.conf.js')
+const { CACHE_FILE_NAME_PATH, CACHE_FILE_PATH } = require('../conf/iconfont.conf.js')
 const fs = require('fs')
 
 /**
@@ -10,6 +10,9 @@ const setCache = (newData) => {
     currData[key] = newData[key]
   })
   try {
+    if (!fs.existsSync(CACHE_FILE_PATH)) {
+      fs.mkdirSync(CACHE_FILE_PATH, { recursive: true })
+    }
     fs.writeFileSync(CACHE_FILE_NAME_PATH, JSON.stringify(currData))
   } catch (error) {
     console.error('write file err', error)
@@ -21,6 +24,9 @@ const setCache = (newData) => {
  */
 const getCache = (key) => {
   try {
+    if (!fs.existsSync(CACHE_FILE_NAME_PATH)) {
+      return ''
+    }
     let currData = fs.readFileSync(CACHE_FILE_NAME_PATH, 'utf-8')
     currData = JSON.parse(currData)
     if (key) {

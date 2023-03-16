@@ -1,6 +1,7 @@
 const path = require('path')
 
 const config = {
+  CACHE_FILE_PATH: path.join(__dirname, '../../cache'),
   CACHE_FILE_NAME_PATH: path.join(__dirname, '../../cache/iconUpdaterCache'),
   DOWNLOAD_TIMEOUT: 30000, // 超时时间
   LOGIN_URL: 'https://www.iconfont.cn/login', // 登录页面url
