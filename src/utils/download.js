@@ -6,7 +6,7 @@ const {
 } = require('../conf/iconfont.conf.js')
 const { KEY_SELECTOR } = require('../conf/iconfont.conf.js')
 const fs = require('fs')
-const { delay } = require('./utils')
+const { delay, logInfo, logSuccess } = require('./utils')
 
 module.exports = {
   /**
@@ -15,9 +15,9 @@ module.exports = {
    * @param {string} projectID
    */
   async downloadIconZip (/** @type {Page} */ page, projectID) {
-    const libraryUrl = `${PROJECT_URL}&projectId=${projectID}`
-    await page.goto(libraryUrl)
-    console.log('go to libraryUrl: ', libraryUrl)
+    const projectUrl = `${PROJECT_URL}&projectId=${projectID}`
+    await page.goto(projectUrl)
+    logInfo('go to projectUrl: ', projectUrl)
     await page.waitForSelector(KEY_SELECTOR.DOWNLOAD_BTN)
     const client = await page.target().createCDPSession()
     await client.send('Page.setDownloadBehavior', {
@@ -35,7 +35,6 @@ module.exports = {
       }
     }
     await page.screenshot({ path: 'example.png' })
-    console.log('zip 下载完成')
+    logSuccess('zip 下载完成')
   },
-  handleZipFile () {}
 }

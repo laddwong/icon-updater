@@ -8,6 +8,7 @@ const { moveFile, unzipFile, cleanUp } = require('../src/utils/fileHandler')
 const { DOWNLOAD_TEMP_FILE_PATH, DOWNLOAD_TEMP_PATH } = require('../src/conf/iconfont.conf.js')
 const { resolve } = require('path')
 const path = require('path')
+const { logInfo } = require('../src/utils/utils')
 
 function queryAccount () {
   return inquirer.prompt([
@@ -34,14 +35,14 @@ async function updateIconFile (account, iconfontPath, projectID) {
 }
 
 // 参数
-console.log('参数：', process.argv)
+logInfo('参数：', process.argv)
 
 program
   .argument('<path>', 'iconfont路径')
   .argument('<projectID>', 'iconfont项目ID')
   .action(async (iconfontPath, projectID) => {
-    console.log('iconfontPath: ', iconfontPath)
-    console.log('projectID: ', projectID)
+    logInfo('iconfontPath: ', iconfontPath)
+    logInfo('projectID: ', projectID)
 
     const accountCache = getAccountCache()
     if (accountCache) {

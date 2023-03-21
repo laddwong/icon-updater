@@ -1,10 +1,11 @@
 const { LOGIN_URL, KEY_SELECTOR, LOGIN_REQ_URL } = require('../conf/iconfont.conf.js')
 const puppeteer = require('puppeteer')
-const { delay, logError } = require('./utils')
+const { delay, logError, logSuccess } = require('./utils')
 const { setCache } = require('./cache.js')
 
 module.exports = {
   loginIconfont: async (account) => {
+    logSuccess('登录中')
     const browser = await puppeteer.launch()
     const page = await browser.newPage()
     await page.goto(LOGIN_URL, { waitUntil: 'domcontentloaded' })
@@ -26,6 +27,7 @@ module.exports = {
       setCache({ username: '', password: '' })
       logError('帐号密码错误')
     }
+    logSuccess('登录成功')
     return { page, browser }
   }
 }

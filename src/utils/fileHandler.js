@@ -1,6 +1,7 @@
 const fs = require('fs')
 const path = require('path')
 const AdmZip = require('adm-zip')
+const { logInfo, logSuccess } = require('./utils')
 
 const cleanUp = (dir) => {
   fs.readdirSync(dir).forEach(file => {
@@ -12,24 +13,25 @@ const cleanUp = (dir) => {
     }
   })
   fs.rmdirSync(dir)
+  logSuccess('清理完成')
 }
 
 const unzipFile = (zipFilePath, savePath) => {
-  console.log(`unzip, s: ${zipFilePath}, d: ${savePath}`)
+  logInfo(`unzip, s: ${zipFilePath}, d: ${savePath}`)
   const file = new AdmZip(zipFilePath)
   file.extractAllTo(savePath)
-  console.log('unzip complete')
+  logSuccess('解压完成')
 }
 
 const moveFile = (sourcePath, destPath) => {
   const dirs = fs.readdirSync(sourcePath)
   for (const dir of dirs) {
     if (dir.startsWith('font_')) {
-      console.log('start move')
       fs.renameSync(path.join(sourcePath, dir, '/iconfont.css'), destPath)
       break
     }
   }
+  logSuccess('更新完成')
 }
 
 module.exports = {
