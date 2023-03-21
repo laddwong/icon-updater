@@ -7,8 +7,10 @@
     "icon-updater": "./bin/cli.js"
   },
   "scripts": {
+    "lint": "eslint src",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "testUpdate": "cross-env NODE_ENV=dev icon-updater /test/css/iconfont.src.css 1007221"
+    "testUpdate": "cross-env NODE_ENV=dev icon-updater /test/css/iconfont.src.css 1007221",
+    "prepare": "husky install"
   },
   "author": "geta",
   "license": "MIT",
@@ -25,6 +27,7 @@
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-n": "^15.0.0",
-    "eslint-plugin-promise": "^6.0.0"
+    "eslint-plugin-promise": "^6.1.1",
+    "husky": "^8.0.0"
   }
 }

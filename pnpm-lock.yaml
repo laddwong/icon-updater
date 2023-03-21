@@ -9,7 +9,8 @@ specifiers:
   eslint-config-standard: ^17.0.0
   eslint-plugin-import: ^2.25.2
   eslint-plugin-n: ^15.0.0
-  eslint-plugin-promise: ^6.0.0
+  eslint-plugin-promise: ^6.1.1
+  husky: ^8.0.0
   inquirer: ^8.0.0
   puppeteer: ^19.7.3
 
@@ -27,6 +28,7 @@ devDependencies:
   eslint-plugin-import: 2.27.5_eslint@8.36.0
   eslint-plugin-n: 15.6.1_eslint@8.36.0
   eslint-plugin-promise: 6.1.1_eslint@8.36.0
+  husky: 8.0.3
 
 packages:
 
@@ -1018,6 +1020,12 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: false
+
+  /husky/8.0.3:
+    resolution: {integrity: sha512-+dQSyqPh4x1hlO1swXBiNb2HzTDN1I2IGLQx1GrBuiqFJfoMrnZWwVmatvSiO+Iz8fBUnf+lekwNo4c2LlXItg==}
+    engines: {node: '>=14'}
+    hasBin: true
+    dev: true
 
   /iconv-lite/0.4.24:
     resolution: {integrity: sha512-v3MXnZAcvnywkTUEZomIActle7RXXeedOR31wwl7VlyoXO4Qi9arvSenNQWne1TcRwhCL1HwLI21bEqdpj8/rA==}

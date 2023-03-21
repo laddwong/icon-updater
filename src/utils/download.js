@@ -34,7 +34,7 @@ module.exports = {
         throw new Error('下载超时')
       }
     }
-    await page.screenshot({ path: 'example.png' })
+    // await page.screenshot({ path: 'example.png' })
     logSuccess('zip 下载完成')
-  },
+  }
 }
